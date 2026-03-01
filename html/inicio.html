@@ -1,3 +1,32 @@
-<p>Aqui va la pantalla de inicio</p>
-<button id="Participaciones" onclick="cargarPantalla('participantes')" class="px-4 py-2 rounded-lg bg-black text-white dark:bg-white dark:text-black transition">
-    siguiente  </button>
+<h1 class="text-4xl font-extrabold text-center text-cyan-500">
+	Bienvenido a <span class="text-indigo-600/100">Nombre</span>
+</h1>
+
+<p class="text-center text-gray-400 mt-2 text-sm">
+	Intercambio de regalos
+</p>
+
+<form id="formUsuario" class="mt-8 space-y-6">
+
+    <div>
+    	<label class="block text-sm font-medium text-white-100 mb-1">
+    		Tu nombre
+    	</label>
+
+    	<input type="text" id="nombre" placeholder="Ingresa tu nombre" 
+            class="w-full px-4 py-3 rounded-xl border text-gray-700 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" required>
+    </div>
+
+    <div class="flex items-center space-x-3">
+    	<input type="checkbox" id="participa" class="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+    	<label for="participa" class="text-gray-700 text-sm">
+    		También participo en el intercambio
+    	</label>
+    </div>
+
+    <div class="flex justify-center">
+    <button id="Participaciones" onclick="cargarPantalla('participantes')" class="px-4 py-2 rounded-lg bg-black text-white dark:bg-white dark:text-black transition">
+        Continuar  </button>
+    </div>
+
+</form>

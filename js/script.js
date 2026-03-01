@@ -29,9 +29,33 @@ function cargarPantalla(vista) {
         .then(response => response.text())
         .then(html => {
             document.getElementById("principal").innerHTML = html;
+            
+        	if (vista === "inicio") {
+				leerNombre();
+			}
         })
         .catch(error => console.error("Error al continuar con la operacion"))
 };
+
+function leerNombre() {
+	const form = document.getElementById("formUsuario");
+
+	if (form) {
+		form.addEventListener("submit", function(e) {
+			e.preventDefault();
+
+			const nombre = document.getElementById("nombre").value;
+			const participa = document.getElementById("participa").checked;
+
+			const usuario = {
+				nombre: nombre,
+				participa: participa
+			};
+
+			localStorage.setItem("usuario", JSON.stringify(usuario));
+		});
+	}
+}
 
 // Declaracion de variables ==========================================================================
 
