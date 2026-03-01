@@ -1,3 +1,36 @@
-<!--- Aqui va todos los participantes -->
-<p>Aqui va todo lo relacionado respecto a participantes</p>
-<button id="Especificaciones" onclick="cargarPantalla('restricciones')" class="px-4 py-2 rounded-lg bg-black text-white dark:bg-white dark:text-black transition"> siguiente </button>
+<h1 class="text-4xl text-center text-cyan-500">
+	¿Quienes seran los participantes?
+</h1>
+
+<hr class="my-6 border-gray-300 w-1/3 mx-auto">
+
+<div class="mt-6">
+
+	<h2 class="text-center text-gray-400 mt-2">
+		Participantes
+	</h2>
+
+	<div class="flex gap-2 mt-4">
+		<input type="text" id="nuevoParticipante" placeholder="Nombre del participante"
+			class="w-full px-4 py-3 rounded-xl border text-gray-700 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+
+		<button id="btnAgregar" class="px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition">
+			Agregar
+		</button>
+	</div>
+
+    <div class="alerta text-center text-red-400 mb-3 text-sm"></div>
+	<ul id="listaParticipantes" class="mt-4 space-y-2 text-md"></ul>
+
+</div>
+
+<div class="mt-8 flex justify-center">
+
+	<div id="eliminarParticipante"
+		class="w-96 h-28 border-2 border-dashed border-red-400 rounded-2xl flex items-center justify-center text-red-400 font-semibold transition">
+		Soltar participante aquí
+	</div>
+
+</div>
+
+<button id="Especificaciones" onclick="cargarPantalla('restricciones')" class="px-4 py-2 my-4 rounded-lg bg-black text-white dark:bg-white dark:text-black padding-4 transition"> Confirmar </button>
