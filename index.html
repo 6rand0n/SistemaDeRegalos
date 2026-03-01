@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Proyecto</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <link href="/src/style.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> tailwind.config = { darkMode: 'class' }</script>
+</head>
+
+<body>
+    <header>
+        <nav class="relative bg-blue-600 dark:bg-gray-800 p-4 flex justify-between items-center">
+
+            <!-- Logo -->
+            <div class="text-white font-bold text-xl">
+                Nombre ingenioso
+            </div>
+
+            <!-- Menú -->
+            <div id="navHid" class="hidden flex flex-col absolute top-full right-0 mt-2 w-48
+                   bg-blue-600 dark:bg-gray-800
+                   p-4 rounded-lg space-y-4
+                   md:static md:flex md:flex-row md:space-y-0 md:space-x-4
+                   md:bg-transparent md:p-0 md:w-auto md:mt-0">
+
+                <a href="#" class="block text-white hover:text-gray-200 transition">
+                    Inicio
+                </a>
+
+                <a href="#" class="block text-white hover:text-gray-200 transition">
+                    Sobre la aplicación
+                </a>
+
+                <a href="#" class="block text-white hover:text-gray-200 transition">
+                    Aplicación
+                </a>
+
+                <button id="BtnOscuro"
+                    class="px-4 py-2 rounded-lg bg-black text-white dark:bg-white dark:text-black transition">
+                    Modo
+                </button>
+            </div>
+
+            <!-- Botón hamburguesa -->
+            <button id="menuBtn" class="md:hidden flex flex-col space-y-1 p-2">
+                <span class="block w-6 h-0.5 bg-white"></span>
+                <span class="block w-6 h-0.5 bg-white"></span>
+                <span class="block w-6 h-0.5 bg-white"></span>
+            </button>
+
+        </nav>
+    </header>
+
+    <main id="principal"
+        class="bg-white text-black dark:bg-gray-900 dark:text-white min-h-screen flex flex-col items-center justify-center">
+    </main>
+
+    <div>
+        <h1>Aqui mostraremos los eventos actuales en </h1>
+    </div>
+
+    <script src="./js/script.js"></script>
+
+    <footer class="bg-blue-950 dark:bg-black text-white dark:text-gray-300 mt-12">
+        <div class="max-w-6xl mx-auto px-6 py-10 grid-cols-1 md:grid-cols-3 gap-8">
+
+            <div>
+                <h2 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-3">
+                    Nombre ingenioso
+                </h2>
+                <p class="text-sm leading-relaxed">
+                    info de abajo
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-3">
+                    Navegacion
+                </h3>
+                <ul class="space-y-2 text-sm">
+                    <li>
+                        <a href="" class="hover:text-blue-500">a</a>
+                        <a href="" class="hover:text-blue-500">v</a>
+                        <a href="" class="hover:text-blue-500">x</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-3">
+                    Info
+                </h3>
+                <p class="space-y-2 text-sm">
+                    <li>Contacto: asdadasdasd</li>
+                    <li>Tel. 13213132123123 </li>
+                    <li>Ubicacion: asdasdad</li>
+                </p>
+            </div>
+
+            <div>
+                <div class="border-t border-gray-300 dark:border-gray-700 text-center py-4 text-sm">
+                    Derechos de autor asdasdasdasdasdasdasdasdasdasd aaa
+                </div>
+
+            </div>
+
+        </div>
+    </footer>
+</body>
+
+</html>
