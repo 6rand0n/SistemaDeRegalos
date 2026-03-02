@@ -14,9 +14,10 @@
     <script> tailwind.config = { darkMode: 'class' }</script>
 </head>
 
-<body>
+<body class="flex flex-col min-h-screen">
+    <!--- Header de la pagina con la barra de navegacion-->
     <header>
-        <nav class="relative bg-blue-600 dark:bg-gray-800 p-4 flex justify-between items-center">
+        <nav class="relative bg-blue-900 dark:bg-gray-800 p-4 flex justify-between items-center">
 
             <!-- Logo -->
             <div class="text-white font-bold text-xl">
@@ -30,20 +31,23 @@
                    md:static md:flex md:flex-row md:space-y-0 md:space-x-4
                    md:bg-transparent md:p-0 md:w-auto md:mt-0">
 
-                <a href="#" class="block text-white hover:text-gray-200 transition">
+                <a href="#" class="block bg-blue-400 text-white hover:text-white transition p-2 rounded-xl
+                                   hover:bg-black ">
                     Inicio
                 </a>
 
-                <a href="#" class="block text-white hover:text-gray-200 transition">
-                    Sobre la aplicación
+                <a href="#" class="block bg-blue-400 text-white hover:text-white transition p-2 rounded-xl
+                                   hover:bg-black ">
+                    Sobre Nosotros
                 </a>
 
-                <a href="#" class="block text-white hover:text-gray-200 transition">
-                    Aplicación
+                <a href="#" class="block bg-blue-400 text-white hover:text-white transition p-2 rounded-xl
+                                   hover:bg-black ">
+                    Activos
                 </a>
 
-                <button id="BtnOscuro"
-                    class="px-4 py-2 rounded-lg bg-black text-white dark:bg-white dark:text-black transition">
+                <button id="BtnOscuro" class="px-4 py-2 rounded-lg transition bg-white text-black hover:bg-black hover:text-white
+                            dark:bg-black dark:text-white dark:hover:bg-white dark:hover:text-black ">
                     Modo
                 </button>
             </div>
@@ -58,61 +62,89 @@
         </nav>
     </header>
 
-    <main id="principal"
-        class="bg-white text-black dark:bg-gray-900 dark:text-white min-h-screen flex flex-col items-center justify-center">
+    <!--- Aqui se inserta todo el contenido interactuable de la pagina -->
+    <main id="principal" class="bg-gray-300 text-black min-h-screen flex flex-col items-center justify-center
+               dark:bg-gray-900 dark:text-white">
     </main>
+    <!---  Aqui va la informacion sobre la pagina -->
 
-    <div>
-        <h1>Aqui mostraremos los eventos actuales en </h1>
+    <div class="flex-grow bg-amber-200 dark:bg-gray-950">
+        <div class="bg-white  rounded-xl shadow-md p-6 w-80 border border-gray-200 w-[80%] mx-auto m-3
+                dark:bg-gray-400 dark:border-gray-700 ">
+            <h1>
+                Titulo
+            </h1>
+
+            <p>
+                Hablar un poco acerca de la pagina (talvez sino ponerlo en el inicio)
+            </p>
+
+        </div>
+
+        <!---  Aqui van los eventos que hay en el local storage -->
+        <div class="bg-white  rounded-xl shadow-md p-6 w-80 border border-gray-200 w-[80%] mx-auto m-3
+                dark:bg-gray-400 dark:border-gray-700 ">
+
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">
+                Eventos en Curso
+            </h2>
+            <!-- Eventos en curso cargarlos desde el js -->
+            <div id="eventos">
+
+            </div>
+
+        </div>
     </div>
 
-    <script src="./js/script.js"></script>
 
-    <footer class="bg-blue-950 dark:bg-black text-white dark:text-gray-300 mt-12">
+    <!--  Footer de la pagina   -->
+    <footer class="bg-blue-950 dark:bg-black text-white dark:text-gray-300 ">
         <div class="max-w-6xl mx-auto px-6 py-10 grid-cols-1 md:grid-cols-3 gap-8">
 
-            <div>
-                <h2 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-3">
-                    Nombre ingenioso
-                </h2>
-                <p class="text-sm leading-relaxed">
-                    info de abajo
-                </p>
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-6">
+                <div>
+                    <h2 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-3">
+                        Nombre ingenioso
+                    </h2>
+                    <h3 class="text-lg font-semibold mb-3">
+                        Nuestras Redes
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>
+                            <a href="" class="hover:text-blue-500">F</a>
+                            <a href="" class="hover:text-blue-500">X</a>
+                            <a href="" class="hover:text-blue-500">Y</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">
+                        Informacion de la pagina
+                    </h3>
+                    <p class="space-y-2 text-sm">
+                        <li>Contacto: ********@**</li>
+                        <li>Tel. *** *** ** **</li>
+                        <li>Ubicacion: ************</li>
+                    </p>
+                </div>
             </div>
 
-            <div>
-                <h3 class="text-lg font-semibold mb-3">
-                    Navegacion
-                </h3>
-                <ul class="space-y-2 text-sm">
-                    <li>
-                        <a href="" class="hover:text-blue-500">a</a>
-                        <a href="" class="hover:text-blue-500">v</a>
-                        <a href="" class="hover:text-blue-500">x</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="text-lg font-semibold mb-3">
-                    Info
-                </h3>
-                <p class="space-y-2 text-sm">
-                    <li>Contacto: asdadasdasd</li>
-                    <li>Tel. 13213132123123 </li>
-                    <li>Ubicacion: asdasdad</li>
-                </p>
-            </div>
 
             <div>
                 <div class="border-t border-gray-300 dark:border-gray-700 text-center py-4 text-sm">
-                    Derechos de autor asdasdasdasdasdasdasdasdasdasd aaa
+                    <p>Pagina creada por:</p>
+                    <p>Francisco Javier Sanchez Vallin</p>
+                    <p>Brandon Javier Becerra Davila </p>
                 </div>
 
             </div>
 
         </div>
     </footer>
+
+
+    <script src="./js/script.js"></script>
 </body>
 
 </html>

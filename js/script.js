@@ -58,7 +58,14 @@ function leerNombre() {
 }
 
 // Declaracion de variables ==========================================================================
-
+// Ayuda a detectar el cambio para la etiqueta main de cualquier evento debido a la inyeccion de codigo
+document.getElementById("principal").addEventListener("click", (e)=> {
+    const action = e.target.dataset.action;
+    if(!action) return ;
+    if(action === "cambiarVista"){
+        cargarPantalla(e.target.dataset.vista);
+    }
+});
 
 
 // Guardado de elementos en local storage ============================================================
