@@ -12,13 +12,15 @@ function inicializarParticipantes() {
 		const nombre = input.value.trim();
 
 		if (nombre === "") {
-			const errorMsg = document.querySelector(".alerta");
+			const errorMsg = document.querySelector(".alerta2");
 			errorMsg.textContent = "El nombre no puede estar vacio";
 			setTimeout(() => { errorMsg.textContent = ""; }, 3000);
 			return;
 		}
 
 		agregarParticipante(nombre);
+
+		let participantes = JSON.parse(localStorage.getItem("participantes")) || [];
 
 		participantes.push(nombre);
 		localStorage.setItem("participantes", JSON.stringify(participantes));
