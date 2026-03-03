@@ -46,6 +46,10 @@ function cargarPantalla(vista) {
 			if(vista === "especificaciones"){
 				inicializarEspecificaciones();
 			}
+
+			if(vista === "presupuesto"){
+				inicializarPresupuesto();
+			}
 		})
 		.catch(error => console.error("Error al continuar con la operacion"))
 };

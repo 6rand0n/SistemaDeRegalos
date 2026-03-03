@@ -6,6 +6,7 @@ function inicializarExclusiones() {
 
 	btnNo.addEventListener("click", () => {
 		panel.classList.add("hidden");
+		localStorage.removeItem("exclusiones");
 	});
 
 	btnSi.addEventListener("click", () => {
