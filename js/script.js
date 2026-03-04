@@ -82,7 +82,7 @@ function inicializacion(vista) {
     	footer.classList.add("hidden");
 		
     	principal.classList.remove("flex-col","items-center","justify-center","fondo-normal");
-    	principal.classList.add("flex","w-full","min-h-screen","p-0","fondo-sorteo");
+    	principal.classList.add("flex","w-full","flex-1","p-0","fondo-sorteo");
 
 		iniciarSorteo(); 
 	} 

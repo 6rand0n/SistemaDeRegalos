@@ -124,7 +124,7 @@ function restaurarLayout() {
     info.classList.remove("hidden");
     footer.classList.remove("hidden");
 
-    principal.classList.remove("flex","w-full","min-h-screen","p-0","fondo-sorteo");
+    principal.classList.remove("flex","w-full","p-0","fondo-sorteo","flex-1");
 
     principal.classList.add(
         "flex",
