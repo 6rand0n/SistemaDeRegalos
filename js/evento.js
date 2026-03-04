@@ -22,6 +22,11 @@ function inicializarOpciones(config) {
 			}
 
 			localStorage.setItem(storageKey, boton.valor);
+
+			// cambiar el color de los botones
+			botones.forEach(b => cambiarEstadoBoton(document.getElementById(b.id), false));
+			cambiarEstadoBoton(document.getElementById(botonPersonalizado), false);
+			cambiarEstadoBoton(btn, true);
 		});
 	});
 
@@ -48,6 +53,9 @@ function inicializarOpciones(config) {
 
 		panel.appendChild(label);
 		panel.appendChild(input);
+
+		botones.forEach(b => cambiarEstadoBoton(document.getElementById(b.id), false));
+		cambiarEstadoBoton(btnPersonal, true);
 	});
 }
 

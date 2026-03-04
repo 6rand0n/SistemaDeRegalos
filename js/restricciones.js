@@ -7,12 +7,17 @@ function inicializarExclusiones() {
 	btnNo.addEventListener("click", () => {
 		panel.classList.add("hidden");
 		localStorage.removeItem("exclusiones");
-	});
+			cambiarEstadoBoton(btnNo, true); 
+			cambiarEstadoBoton(btnSi, false);
+	});		
 
 	btnSi.addEventListener("click", () => {
 		panel.classList.remove("hidden");
 		generarPanelExclusiones();
+			cambiarEstadoBoton(btnSi, true); 
+			cambiarEstadoBoton(btnNo, false);
 	});
+				
 }
 
 function generarPanelExclusiones() {

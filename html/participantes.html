@@ -10,18 +10,17 @@
 		Participantes
 	</h2>
 
-	<div class="flex gap-2 mt-4">
-		<input type="text" id="nuevoParticipante" placeholder="Nombre del participante"
-			class="w-full px-4 py-3 rounded-xl border text-gray-700 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
-
-		<button id="btnAgregar" class="px-4 py-2 rounded-lg transition bg-white text-black hover:bg-black hover:text-white
-                            dark:bg-blue-900 dark:text-white dark:hover:bg-blue-300 dark:hover:text-black">
-			Agregar
-		</button>
+	<div class="flex flex-col sm:flex-row gap-2 mt-4 justify-center"> <input type="text" id="nuevoParticipante"
+			placeholder="Nombre del participante"
+			class=" w-34 px-4 py-3 rounded-xl border text-gray-700 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+		<button id="btnAgregar"
+			class="px-4 py-2 rounded-lg transition bg-white text-black hover:bg-black hover:text-white dark:bg-blue-900 dark:text-white dark:hover:bg-blue-300 dark:hover:text-black">
+			Agregar </button> 
 	</div>
 
-    <div class="alerta2 text-center text-red-400 mb-3 text-sm"></div>
-	<ul id="listaParticipantes" class="mt-4 grid grid-cols-4 gap-4 justify-items-center	"></ul>
+	<div class="alerta2 text-center text-red-400 mb-3 text-sm"></div>
+	<ul id="listaParticipantes"
+		class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center	"></ul>
 
 </div>
 
@@ -38,8 +37,8 @@
 
 </div>
 
-<button onclick="cargarPantalla('restricciones')"
-        class="px-4 py-2 rounded-lg transition bg-white text-black hover:bg-black hover:text-white mb-4
-                            dark:bg-black dark:text-white dark:hover:bg-white dark:hover:text-black"> Siguiente </button>
+<button onclick="cargarPantalla('restricciones')" class="px-4 py-2 rounded-lg transition bg-white text-black hover:bg-black hover:text-white mb-4
+                            dark:bg-black dark:text-white dark:hover:bg-white dark:hover:text-black"> Siguiente
+</button>
 
 <div class="alerta text-center text-red-400 mb-3 text-sm"></div>

@@ -8,6 +8,8 @@ function inicializarFecha() {
 
 	btnOtra.addEventListener("click", () => {
 		panel.classList.remove("hidden");
+		document.querySelectorAll("#fechasSugeridas button").forEach(b => cambiarEstadoBoton(b, false));
+		cambiarEstadoBoton(btnOtra, true);
 	});
 
 	inputFecha.addEventListener("change", () => {
@@ -49,6 +51,11 @@ function fechasSugeridas() {
 			// Eliminamos la hora antes de guardar la fecha
 			localStorage.setItem("fecha", fecha.toISOString().split("T")[0]);
 			document.getElementById("panelFecha").classList.add("hidden");
+
+			contenedor.querySelectorAll("button").forEach(b => cambiarEstadoBoton(b, false));
+			cambiarEstadoBoton(btn, true);
+			const btnOtra = document.getElementById("btnOtraFecha"); 
+			cambiarEstadoBoton(btnOtra, false);
 		});
 
 		contenedor.appendChild(btn);
