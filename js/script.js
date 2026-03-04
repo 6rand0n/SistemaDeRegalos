@@ -30,10 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // revisar el estado de los sorteos y mostrar los activos (si es que hay)
 
 
-
-
-
-
 // Funciones =========================================================================================
 function cargarPantalla(vista) {
 
@@ -77,8 +73,19 @@ function inicializacion(vista) {
 		inicializarFecha();
 	}
 	if (vista === "sorteo") { 
+
+    	const principal = document.getElementById("principal");
+    	const info = document.getElementById("seccionInfo");
+    	const footer = document.getElementById("footerPagina");
+
+    	info.classList.add("hidden");
+    	footer.classList.add("hidden");
+		
+    	principal.classList.remove("flex-col","items-center","justify-center","fondo-normal");
+    	principal.classList.add("flex","w-full","min-h-screen","p-0","fondo-sorteo");
+
 		iniciarSorteo(); 
-	}
+	} 
 }
 
 function verificaciones(vista) {

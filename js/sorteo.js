@@ -14,10 +14,10 @@ function iniciarSorteo() {
 
     // mensaje de los datos
     infoDiv.innerHTML = `
-        <h2 class="text-xl font-bold mb-4">El sorteo para el evento de "${evento.nombre}"</h2>
-        <p><strong>Fecha:</strong> ${evento.fecha}</p>
-        <p><strong>Presupuesto:</strong> ${evento.presupuesto}</p>
-        <h3 class="mt-4 font-semibold">Participantes:</h3>
+        <h2 class="text-xl mb-4">El sorteo para el evento de "${evento.nombre}"</h2>
+        <p>Presupuesto:</strong> ${evento.presupuesto}</p>
+        <p>Fecha:</> ${evento.fecha}</p>
+        <h3 class="mt-4">Participantes:</h3>
         <ul class="bg-white text-black rounded flex items-center flex-col list-disc pl-6 m-3 p-4">
             ${evento.participantes.map(p => `<li>${p}</li>`).join("")}
         </ul>
@@ -57,10 +57,10 @@ function iniciarSorteo() {
             const fila = document.createElement("div");
             fila.className = "flex flex-col md:flex-row justify-between items-center p-3 rounded-lg bg-white dark:bg-gray-700 shadow";
             fila.innerHTML = `
-                <span class="font-bold text-blue-600 dark:text-blue-300">${dador}</span>
+                <span class="text-blue-600 dark:text-blue-300">${dador}</span>
                 <span class="text-gray-700 dark:text-white"> Regala a
                  </span>
-                <span class="font-semibold text-green-600 dark:text-green-300">${receptor}</span>
+                <span class="text-green-600 dark:text-green-300">${receptor}</span>
             `;
             resultadosDiv.appendChild(fila);
         });
@@ -77,6 +77,8 @@ function iniciarSorteo() {
             localStorage.removeItem("presupuesto");
             localStorage.removeItem("usuario");
             localStorage.removeItem("evento");
+
+            restaurarLayout();
             cargarPantalla("inicio"); // vuelve a inicio
         });
     });
@@ -112,4 +114,23 @@ function generarSorteo(participantes, exclusiones) {
         if (valido) return asignaciones;
     }
     return null; // si no se encontró solución
+}
+
+function restaurarLayout() {
+    const principal = document.getElementById("principal");
+    const info = document.getElementById("seccionInfo");
+    const footer = document.getElementById("footerPagina");
+
+    info.classList.remove("hidden");
+    footer.classList.remove("hidden");
+
+    principal.classList.remove("flex","w-full","min-h-screen","p-0","fondo-sorteo");
+
+    principal.classList.add(
+        "flex",
+        "flex-col",
+        "items-center",
+        "justify-center",
+        "fondo-normal"
+    );
 }

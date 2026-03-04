@@ -33,7 +33,7 @@ function generarPanelExclusiones() {
 		wrapper.className = "bg-gray-100 dark:bg-gray-700 p-4 rounded-xl space-y-3";
 
 		const titulo = document.createElement("p");
-		titulo.className = "font-semibold text-gray-700 dark:text-white";
+		titulo.className = "text-gray-700 dark:text-white";
 		titulo.textContent = nombre;
 
 		const divSeleccion = document.createElement("div");

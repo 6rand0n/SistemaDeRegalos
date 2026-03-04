@@ -3,3 +3,17 @@
 body {
     font-family: 'Patua One', cursive;
 }
+
+.fondo-sorteo {
+	background-image: url("../src/sorteoBg.png");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.fondo-normal {
+	background-image: url("../src/bg.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
