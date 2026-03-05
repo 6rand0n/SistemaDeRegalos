@@ -3,7 +3,7 @@ function iniciarSorteo() {
     const infoDiv = document.getElementById("infoEvento");
     const resultadosDiv = document.getElementById("resultados");
 
-    // Mostrar info del evento ANTES de sortear
+    // Mostrar info del evento 
     const evento = {
         nombre: localStorage.getItem("evento") || "Sin nombre",
         participantes: JSON.parse(localStorage.getItem("participantes")) || [],
@@ -12,66 +12,100 @@ function iniciarSorteo() {
         fecha: localStorage.getItem("fecha") || "No definida"
     };
 
-    // mensaje de los datos
+    // mensaje que se muestre los datos 
     infoDiv.innerHTML = `
-        <h2 class="text-xl mb-4">El sorteo para el evento de "${evento.nombre}"</h2>
-        <p>Presupuesto:</strong> ${evento.presupuesto}</p>
-        <p>Fecha:</> ${evento.fecha}</p>
-        <h3 class="mt-4">Participantes:</h3>
-        <ul class="bg-white text-black rounded flex items-center flex-col list-disc pl-6 m-3 p-4">
-            ${evento.participantes.map(p => `<li>${p}</li>`).join("")}
+        <h2 class="mb-4 text-4xl font-bold text-slate-800 dark:text-white">
+            Sorteo para "${evento.nombre}"
+        </h2>
+
+        <p class="text-lg text-slate-700 dark:text-slate-300">
+            <strong>Presupuesto:</strong> ${evento.presupuesto}
+        </p>
+
+        <p class="text-lg text-slate-700 dark:text-slate-300">
+            <strong>Fecha:</strong> ${evento.fecha}
+        </p>
+
+        <h3 class="mt-6 text-xl font-semibold text-slate-800 dark:text-white">
+            Participantes
+        </h3>
+
+        <ul class="flex flex-col items-center gap-2 mt-3">
+            ${evento.participantes.map(p => `
+                <li class="px-4 py-2 bg-white dark:bg-slate-800 rounded-lg shadow text-slate-700 dark:text-slate-300">
+                    ${p}
+                </li>
+            `).join("")}
         </ul>
     `;
 
-    // Acción al presionar "Sortear"
+    // accion para hacer el sortear 
     btnSortear.addEventListener("click", () => {
+
         const asignaciones = generarSorteo(evento.participantes, evento.exclusiones);
         btnSortear.textContent = "Sortear de Nuevo";
 
-
         if (!asignaciones) {
-            resultadosDiv.innerHTML = `<p class="text-red-500 font-semibold">
-                No se pudo generar un sorteo válido. Revisa las exclusiones.
-            </p>`;
+            resultadosDiv.innerHTML = `
+                <p class="text-red-500 font-semibold">
+                    No se pudo generar un sorteo válido. Revisa las exclusiones.
+                </p>`;
             return;
         }
 
         // Guardar evento completo con sorteo
         evento.sorteo = asignaciones;
 
-        // Recuperar lista de eventos guardados
         let eventos = JSON.parse(localStorage.getItem("eventos")) || [];
-
-        // Agregar el nuevo evento
         eventos.push(evento);
-
-        // Guardar lista actualizada
         localStorage.setItem("eventos", JSON.stringify(eventos));
-
-        // Ocultar info inicial
         infoDiv.innerHTML = "";
-
-        // Mostrar resultados
         resultadosDiv.innerHTML = "";
+
         Object.entries(asignaciones).forEach(([dador, receptor]) => {
+
             const fila = document.createElement("div");
-            fila.className = "flex flex-col md:flex-row justify-between items-center p-3 rounded-lg bg-white dark:bg-gray-700 shadow";
+
+            fila.className =
+                "flex items-center justify-center gap-6 p-4 bg-white dark:bg-slate-800 rounded-xl shadow-md animate-fade";
+
             fila.innerHTML = `
-                <span class="text-blue-600 dark:text-blue-300">${dador}</span>
-                <span class="text-gray-700 dark:text-white"> Regala a
-                 </span>
-                <span class="text-green-600 dark:text-green-300">${receptor}</span>
+                <span class="flex items-center justify-center px-4 py-2 rounded-full bg-blue-500 text-white font-semibold">
+                    ${dador}
+                </span>
+
+                <span class="fa-solid fa-gift text-yellow-500 text-xl"></span>
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-slate-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                    <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"/>
+                </svg>
+
+                <span class="flex items-center justify-center px-4 py-2 rounded-full bg-emerald-500 text-white font-semibold">
+                    ${receptor}
+                </span>
             `;
+
             resultadosDiv.appendChild(fila);
         });
 
-        // Crear botón "Finalizar"
         const btnFinalizar = document.createElement("button");
+
         btnFinalizar.textContent = "Finalizar";
-        btnFinalizar.className = "mt-6 px-6 py-3 rounded-lg bg-red-600 text-white hover:bg-red-700 transition";
+
+        btnFinalizar.className =
+            "mt-6 px-8 py-3 rounded-full bg-red-500 text-white font-semibold shadow-lg hover:bg-red-600 hover:scale-105 transition";
+
         resultadosDiv.appendChild(btnFinalizar);
 
         btnFinalizar.addEventListener("click", () => {
+
             localStorage.removeItem("fecha");
             localStorage.removeItem("participantes");
             localStorage.removeItem("presupuesto");
@@ -79,30 +113,34 @@ function iniciarSorteo() {
             localStorage.removeItem("evento");
 
             restaurarLayout();
-            cargarPantalla("inicio"); // vuelve a inicio
+            cargarPantalla("inicio");
         });
     });
 }
 
+
 // Algoritmo simple: intenta barajar hasta que cumpla exclusiones
 function generarSorteo(participantes, exclusiones) {
+
     const maxIntentos = 1000;
+
     for (let intento = 0; intento < maxIntentos; intento++) {
-        const receptores = [...participantes].sort(() => Math.random() - 0.5);
+
+        const receptores = mezclar(participantes);
         const asignaciones = {};
 
         let valido = true;
+
         for (let i = 0; i < participantes.length; i++) {
+
             const dador = participantes[i];
             const receptor = receptores[i];
 
-            // No puede darse a sí mismo
             if (dador === receptor) {
                 valido = false;
                 break;
             }
 
-            // No puede darse a alguien en sus exclusiones
             if (exclusiones[dador] && exclusiones[dador].includes(receptor)) {
                 valido = false;
                 break;
@@ -113,10 +151,13 @@ function generarSorteo(participantes, exclusiones) {
 
         if (valido) return asignaciones;
     }
-    return null; // si no se encontró solución
+
+    return null;
 }
 
+
 function restaurarLayout() {
+
     const principal = document.getElementById("principal");
     const info = document.getElementById("seccionInfo");
     const footer = document.getElementById("footerPagina");
@@ -124,7 +165,7 @@ function restaurarLayout() {
     info.classList.remove("hidden");
     footer.classList.remove("hidden");
 
-    principal.classList.remove("flex","w-full","p-0","fondo-sorteo","flex-1");
+    principal.classList.remove("flex", "w-full", "p-0", "fondo-sorteo", "flex-1");
 
     principal.classList.add(
         "flex",
@@ -133,4 +174,14 @@ function restaurarLayout() {
         "justify-center",
         "fondo-normal"
     );
+}
+
+// funcion para mezclar de manera correcta 
+function mezclar(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
 }

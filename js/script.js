@@ -19,16 +19,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Eliminar todo en caso de recarga la pagina
 	localStorage.removeItem("fecha");
-    localStorage.removeItem("participantes");
+	localStorage.removeItem("participantes");
 	localStorage.removeItem("presupuesto");
-    localStorage.removeItem("usuario");
-    localStorage.removeItem("evento");
+	localStorage.removeItem("usuario");
+	localStorage.removeItem("evento");
 	// carga pantalla inicial
 	cargarPantalla('inicio');
 });
 
-// revisar el estado de los sorteos y mostrar los activos (si es que hay)
-
+// eliminar loe eventos 
+function eliminarEvento(index) {
+    const eventos = JSON.parse(localStorage.getItem("eventos")) || [];
+    eventos.splice(index, 1); 
+    localStorage.setItem("eventos", JSON.stringify(eventos));
+    mostrarEventosInicio(); 
+}
 
 // Funciones =========================================================================================
 function cargarPantalla(vista) {
@@ -61,31 +66,31 @@ function inicializacion(vista) {
 		inicializarExclusiones();
 	}
 
-	if(vista === "evento"){
+	if (vista === "evento") {
 		inicializarEvento();
 	}
 
-	if(vista === "presupuesto"){
+	if (vista === "presupuesto") {
 		inicializarPresupuesto();
 	}
 
-	if(vista === "fecha"){
+	if (vista === "fecha") {
 		inicializarFecha();
 	}
-	if (vista === "sorteo") { 
+	if (vista === "sorteo") {
 
-    	const principal = document.getElementById("principal");
-    	const info = document.getElementById("seccionInfo");
-    	const footer = document.getElementById("footerPagina");
+		const principal = document.getElementById("principal");
+		const info = document.getElementById("seccionInfo");
+		const footer = document.getElementById("footerPagina");
 
-    	info.classList.add("hidden");
-    	footer.classList.add("hidden");
-		
-    	principal.classList.remove("flex-col","items-center","justify-center","fondo-normal");
-    	principal.classList.add("flex","w-full","flex-1","p-0","fondo-sorteo");
+		info.classList.add("hidden");
+		footer.classList.add("hidden");
 
-		iniciarSorteo(); 
-	} 
+		principal.classList.remove("flex-col", "items-center", "justify-center", "fondo-normal");
+		principal.classList.add("flex", "w-full", "flex-1", "p-0", "fondo-sorteo");
+
+		iniciarSorteo();
+	}
 }
 
 function verificaciones(vista) {
@@ -157,63 +162,104 @@ function error(mensaje) {
 }
 // Cambiar el color del boton presionado
 function cambiarEstadoBoton(boton, activo) {
-    if (activo) {
-        boton.classList.remove("bg-white","text-black","dark:bg-blue-900","dark:text-white",
-                               "bg-gray-200","text-blue-600","dark:bg-gray-700","dark:text-blue-300");
-        boton.classList.add("bg-black","text-white","dark:bg-blue-300","dark:text-black");
-    } else {
-        boton.classList.remove("bg-black","text-white","dark:bg-blue-300","dark:text-black");
-        boton.classList.add("bg-white","text-black","dark:bg-blue-900","dark:text-white",
-                            "bg-gray-200","text-blue-600","dark:bg-gray-700","dark:text-blue-300");
-    }
+	if (activo) {
+		boton.classList.remove("bg-white", "text-black", "dark:bg-blue-900", "dark:text-white",
+			"bg-gray-200", "text-blue-600", "dark:bg-gray-700", "dark:text-blue-300");
+		boton.classList.add("bg-black", "text-white", "dark:bg-blue-300", "dark:text-black");
+	} else {
+		boton.classList.remove("bg-black", "text-white", "dark:bg-blue-300", "dark:text-black");
+		boton.classList.add("bg-white", "text-black", "dark:bg-blue-900", "dark:text-white",
+			"bg-gray-200", "text-blue-600", "dark:bg-gray-700", "dark:text-blue-300");
+	}
 }
 
 
 // Funcion para mostrar los eventos
 function mostrarEventosInicio() {
-    const contenedor = document.getElementById("eventos");
-    const eventosGuardados = JSON.parse(localStorage.getItem("eventos")) || [];
+	const contenedor = document.getElementById("eventos");
+	const eventosGuardados = JSON.parse(localStorage.getItem("eventos")) || [];
 
-    if (eventosGuardados.length === 0) {
-        contenedor.innerHTML = "<p class='text-gray-500'>No hay eventos guardados.</p>";
-        return;
-    }
+	if (eventosGuardados.length === 0) {
+		contenedor.innerHTML = "<p class='text-slate-500 text-center'>No hay eventos guardados.</p>";
+		return;
+	}
 
-    contenedor.innerHTML = eventosGuardados.map((evento, index) => `
-        <div class="border rounded-lg overflow-hidden shadow mb-4">
-            <button class="w-full flex justify-between items-center bg-blue-600 text-white px-4 py-2 focus:outline-none"
-                    onclick="toggleAccordion(this)">
-                <span>${evento.nombre} Se celebrara el: (${evento.fecha})</span>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="hidden bg-white dark:bg-gray-700 p-4 space-y-2">
-                <p><strong>Presupuesto:</strong> ${evento.presupuesto}</p>
-                <h4 class="font-semibold">Participantes:</h4>
-                <ul class="list-disc pl-6">
-                    ${evento.participantes.map(p => `<li>${p}</li>`).join("")}
-                </ul>
-                <h4 class="font-semibold">Sorteo:</h4>
-                <ul class="list-disc pl-6">
-                    ${Object.entries(evento.sorteo).map(
-                        ([dador, receptor]) => `<li>${dador} Regala a ${receptor}</li>`
-                    ).join("")}
-                </ul>
-            </div>
-        </div>
-    `).join("");
+	contenedor.innerHTML = eventosGuardados.map((evento, index) => `
+		<div class="bg-white/70 dark:bg-slate-800/70 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden mb-6 border border-slate-200 dark:border-slate-700">
+			<button class="w-full flex justify-between items-center px-6 py-4 text-left bg-gradient-to-r from-violet-700 to-purple-700 text-white font-semibold text-lg hover:brightness-110 transition" onclick="toggleAccordion(this)">
+					<span class="flex items-center gap-2">
+						<i class="fa-solid fa-calendar text-violet-200"></i>
+						${evento.nombre}
+						<span class="text-sm opacity-90">(${evento.fecha})</span>
+					</span>
+				<i class="fas fa-chevron-down transition-transform duration-300"></i>
+			</button>
+
+		<div class="hidden p-6 space-y-6">
+
+		<p class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+			<i class="fa-solid fa-money-bill-wave text-violet-400"></i>
+			<strong>Presupuesto:</strong> ${evento.presupuesto}
+		</p>
+
+		<div>
+			<h4 class="flex items-center gap-2 font-semibold text-slate-800 dark:text-white mb-2">
+			<i class="fa-solid fa-users text-violet-400"></i>
+				Participantes
+		</h4>
+
+		<div class="flex flex-wrap gap-2">
+		${evento.participantes.map(p => `
+		<span class="px-3 py-1 rounded-full bg-violet-600 text-white text-sm shadow">
+		${p}
+		</span>
+		`).join("")}
+		</div>
+		</div>
+
+		<div>
+		<h4 class="flex items-center gap-2 font-semibold text-slate-800 dark:text-white mb-3">
+		<i class="fa-solid fa-gift text-violet-400"></i>
+		Resultado del sorteo
+		</h4>
+
+		<div class="space-y-2">
+		${Object.entries(evento.sorteo).map(([dador, receptor]) => `
+		<div class="flex items-center justify-center gap-4 p-3 rounded-xl bg-slate-100 dark:bg-slate-700 shadow-sm">
+		<span class="px-3 py-1 rounded-full bg-violet-600 text-white text-sm">
+		${dador}
+		</span>
+		<i class="fa-solid fa-gift text-violet-300"></i>
+		<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+		<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+		</svg>
+		<span class="px-3 py-1 rounded-full bg-purple-700 text-white text-sm">
+		${receptor}
+		</span>
+		</div>
+		`).join("")}
+		</div>
+		</div>
+
+		<div class="flex justify-end">
+		<button onclick="eliminarEvento(${index})" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition">
+		<i class="fa-solid fa-trash"></i>
+		Eliminar
+		</button>
+		</div>
+
+		</div>
+		</div>
+
+`).join("");
 }
 
-
-// Función para abrir/cerrar acordeón
 function toggleAccordion(button) {
-    const content = button.nextElementSibling;
-    content.classList.toggle("hidden");
-
-    // Rotar el ícono
-    const icon = button.querySelector("i");
-    icon.classList.toggle("rotate-180");
+	const content = button.nextElementSibling;
+	content.classList.toggle("hidden");
+	const icon = button.querySelector("i:last-child");
+	icon.classList.toggle("rotate-180");
 }
-
 
 
 // Declaracion de variables ==========================================================================

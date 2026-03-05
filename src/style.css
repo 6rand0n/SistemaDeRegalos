@@ -9,6 +9,8 @@ body {
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+	min-height: 100vh;
+
 }
 
 .fondo-normal {
@@ -16,4 +18,27 @@ body {
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+	min-height: 100vh;
 }
+
+@keyframes fade {
+from{
+opacity:0;
+transform:translateY(15px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.animate-fade{
+animation:fade .4s ease;
+}
+
+.resultado-card{
+	backdrop-filter: blur(6px);
+	border-radius: 14px;
+}
+
