@@ -19,6 +19,7 @@ function leerNombre() {
 			};
 
 			localStorage.setItem("usuario", JSON.stringify(usuario));
+			
 			if (participa) {
 				localStorage.setItem("participantes", JSON.stringify([nombre]));
 			} else {

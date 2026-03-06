@@ -12,11 +12,32 @@ function iniciarSorteo() {
         fecha: localStorage.getItem("fecha") || "No definida"
     };
 
+    const filasExclusiones = Object.keys(evento.exclusiones).length === 0
+	? `<tr>
+			<td colspan="2" class="px-4 py-2 text-center text-slate-500">
+				No hay exclusiones registradas
+			</td>
+		</tr>`
+	: Object.keys(evento.exclusiones).sort().map(persona => `
+		<tr class="border-t border-slate-300 dark:border-slate-600">
+			<td class="px-4 py-2 text-slate-800 dark:text-white">
+				${persona}
+			</td>
+			<td class="px-4 py-2 text-slate-700 dark:text-slate-300">
+				${evento.exclusiones[persona].join(", ")}
+			</td>
+		</tr>
+	`).join("");
+
     // mensaje que se muestre los datos 
     infoDiv.innerHTML = `
         <h2 class="mb-4 text-4xl font-bold text-slate-800 dark:text-white">
             Sorteo para "${evento.nombre}"
         </h2>
+
+        <h3 class="mb-4 text-2xl text-slate-800 dark:text-white">
+            Organizador: ${JSON.parse(localStorage.getItem("usuario")).nombre}
+        </h3>
 
         <p class="text-lg text-slate-700 dark:text-slate-300">
             <strong>Presupuesto:</strong> ${evento.presupuesto}
@@ -26,7 +47,7 @@ function iniciarSorteo() {
             <strong>Fecha:</strong> ${evento.fecha}
         </p>
 
-        <h3 class="mt-6 text-xl font-semibold text-slate-800 dark:text-white">
+        <h3 class="mt-6 text-xl text-slate-800 dark:text-white">
             Participantes
         </h3>
 
@@ -37,6 +58,28 @@ function iniciarSorteo() {
                 </li>
             `).join("")}
         </ul>
+
+        <h4 class="mb-4 text-4xl text-slate-800 dark:text-white">
+            Exclusiones
+        </h4>
+
+        <div class="mt-3 overflow-x-auto flex flex-col items-center gap-2 mt-3">
+	        <table class="min-w-[300px] border border-slate-300 dark:border-slate-600 rounded-lg overflow-hidden">
+	    	        <thead class="bg-slate-200 dark:bg-slate-700">
+	    	        	<tr>
+	    	        		<th class="px-4 py-2 text-left text-slate-800 dark:text-white">
+	    	        			Participante
+	    	        		</th>
+	    	        		<th class="px-4 py-2 text-left text-slate-800 dark:text-white">
+	    	        			No puede sacar a
+	    	        		</th>
+	    	        	</tr>
+	    	        </thead>
+	    	        <tbody class="bg-white dark:bg-slate-800">
+	    	        	${filasExclusiones}
+	    	    </tbody>
+	        </table>
+        </div>
     `;
 
     // accion para hacer el sortear 
