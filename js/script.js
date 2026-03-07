@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	localStorage.removeItem("presupuesto");
 	localStorage.removeItem("usuario");
 	localStorage.removeItem("evento");
+	localStorage.removeItem("exclusiones");
 	// carga pantalla inicial
 	cargarPantalla('inicio');
 });
