@@ -1,6 +1,30 @@
 // Apartado para cosas al cargar la pagina del local storage =========================================
+
+// Aplica el estilo base usado por cambiarEstadoBoton a cualquier botón.
+function aplicarEstiloBase(boton) {
+	if (!boton) return;
+	// eliminar posibles clases de colores antiguos que rompen el diseño
+	const remover = [
+		"bg-gray-200", "text-blue-600", "hover:bg-blue-600", "hover:text-white",
+		"dark:bg-gray-700", "dark:text-blue-300", "dark:hover:bg-blue-300", "dark:hover:text-black",
+		"dark:bg-black", "dark:hover:bg-white"
+	];
+	remover.forEach(c => boton.classList.remove(c));
+
+	const clases = [
+		"px-4", "py-2", "rounded-lg", "transition",
+		"bg-white", "text-black",
+		"hover:bg-black", "hover:text-white",
+		"dark:bg-blue-900", "dark:text-white",
+		"dark:hover:bg-blue-300", "dark:hover:text-black"
+	];
+	clases.forEach(c => boton.classList.add(c));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-	// carga la conf de preferencia
+	// estilo base para botones que ya existen
+	document.querySelectorAll("button").forEach(aplicarEstiloBase);
+
 	if (localStorage.getItem('theme') === 'dark') {
 		document.documentElement.classList.add('dark');
 	}
@@ -46,6 +70,8 @@ function cargarPantalla(vista) {
 		.then(response => response.text())
 		.then(html => {
 			document.getElementById("principal").innerHTML = html;
+			// aplicar estilo a los botones recién insertados
+			document.getElementById("principal").querySelectorAll("button:not(.bg-gradient-to-r)").forEach(aplicarEstiloBase);
 			inicializacion(vista);
 		})
 		.catch(error => console.error("Error al continuar con la operacion", error))
@@ -160,16 +186,16 @@ function error(mensaje) {
 	errorMsg.textContent = mensaje;
 	setTimeout(() => { errorMsg.textContent = ""; }, 3000);
 }
-// Cambiar el color del boton presionado
+// Cambiar el color del boton presionado sin alterar hover u otras clases
 function cambiarEstadoBoton(boton, activo) {
+	if (!boton) return;
 	if (activo) {
-		boton.classList.remove("bg-white", "text-black", "dark:bg-blue-900", "dark:text-white",
-			"bg-gray-200", "text-blue-600", "dark:bg-gray-700", "dark:text-blue-300");
+		// quitar las clases de estado normal antes de aplicar el activo
+		boton.classList.remove("bg-white", "text-black", "dark:bg-blue-900", "dark:text-white");
 		boton.classList.add("bg-black", "text-white", "dark:bg-blue-300", "dark:text-black");
 	} else {
 		boton.classList.remove("bg-black", "text-white", "dark:bg-blue-300", "dark:text-black");
-		boton.classList.add("bg-white", "text-black", "dark:bg-blue-900", "dark:text-white",
-			"bg-gray-200", "text-blue-600", "dark:bg-gray-700", "dark:text-blue-300");
+		boton.classList.add("bg-white", "text-black", "dark:bg-blue-900", "dark:text-white");
 	}
 }
 

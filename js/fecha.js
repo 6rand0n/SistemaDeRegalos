@@ -39,13 +39,9 @@ function fechasSugeridas() {
 
 		const btn = document.createElement("button");
 		btn.textContent = fechaTexto;
-
-		btn.className = `
-			px-4 py-2 rounded-lg transition w-80
-			bg-gray-200 text-blue-600
-			hover:bg-blue-600 hover:text-white
-			dark:bg-gray-700 dark:text-blue-300
-		`;
+		// aplicar estilo base común y ancho fijo
+		aplicarEstiloBase(btn);
+		btn.classList.add("w-80");
 
 		btn.addEventListener("click", () => {
 			// Eliminamos la hora antes de guardar la fecha

@@ -142,8 +142,9 @@ function iniciarSorteo() {
 
         btnFinalizar.textContent = "Finalizar";
 
-        btnFinalizar.className =
-            "mt-6 px-8 py-3 rounded-full bg-red-500 text-white font-semibold shadow-lg hover:bg-red-600 hover:scale-105 transition";
+        // aplicar estilo base y ajustar algunos detalles adicionales
+        aplicarEstiloBase(btnFinalizar);
+        btnFinalizar.classList.add("mt-6", "px-8", "py-3", "rounded-full", "font-semibold", "shadow-lg");
 
         resultadosDiv.appendChild(btnFinalizar);
 
